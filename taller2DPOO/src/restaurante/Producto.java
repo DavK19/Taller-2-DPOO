@@ -20,8 +20,11 @@ public class Producto {
 			base = ProductoAjustado.class.cast(base);
 		case 3:
 			base = Combo.class.cast(base);
-		}
-		
+		}	
+	}
+	
+	public int getPrecio() {
+		return this.precioProducto;
 	}
 	
 }
