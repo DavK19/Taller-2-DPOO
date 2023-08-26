@@ -1,4 +1,4 @@
-package aplicacion;
+package consola;
 
 import java.io.BufferedReader;
 import java.io.BufferedReader;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class aplicacion {
+public class Aplicacion {
 	public void main(String[] args) {
 
 	}
