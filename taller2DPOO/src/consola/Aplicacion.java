@@ -22,9 +22,9 @@ import restaurante.Restaurante;
 
 public class Aplicacion {
 	
-	Restaurante restaurante;
-	ArrayList <ProductoMenu> listaProductos;
-	ArrayList <Ingrediente> listaIngredientes;
+	private Restaurante restaurante = new Restaurante();
+	private ArrayList <ProductoMenu> listaProductos;
+	private ArrayList <Ingrediente> listaIngredientes;
 	
 	
 	public void main(String[] args) {
@@ -73,6 +73,4 @@ public class Aplicacion {
 		}
 		return null;
 	}
-	
-	public void 
 }
