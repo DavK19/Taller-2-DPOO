@@ -7,7 +7,8 @@ public class Combo {
 	
 	private String nombreCombo;
 	private double descuento;
-	private int precio;
+	private int precioBase;
+	private double precioFinal;
 	private ArrayList<ProductoMenu> itemsCombo;
 	
 	public Combo (String nombre, double descuento) {
@@ -17,14 +18,17 @@ public class Combo {
 	
 	public void agregarItemCombo (ProductoMenu producto) {
 		this.itemsCombo.add(producto);
+		precioBase = precioBase + producto.getPrecio();
+		precioFinal = precioBase*descuento;
+		
 	}
 	
 	public String getNombre() {
 		return this.nombreCombo;
 	}
 	
-	public int getPrecio() {
-		return this.precio;
+	public double getPrecio() {
+		return this.precioFinal;
 	}
 	
 	public String generarTextoFactura() {
