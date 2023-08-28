@@ -11,12 +11,29 @@ public class Pedido {
 	private int idPedido;
 	private String nombreCliente;
 	private String direccionCliente;
+	private ArrayList<Object> listaProductos;
+	private Producto productos;
 	
 	public Pedido (String nombreCliente, String direccionCliente) {
 		this.nombreCliente = nombreCliente;
 		this.direccionCliente = direccionCliente;
+		this.idPedido = numeroPedidos;
 		Pedido.numeroPedidos ++;
 	}
+	
+	
+	public void agregarProducto(ProductoMenu producto) {
+		
+	}
+	
+	public void agregarProductoAjustado (ProductoAjustado producto) {
+		
+	}
+	
+	public void agregarCombo (Combo combo) {
+		
+	}
+	
 	
 	public int getIdPedido() {
 		return this.idPedido;

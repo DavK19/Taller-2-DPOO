@@ -26,6 +26,7 @@ public class Restaurante {
 	private File archivoProductos;
 	private File archivoIngredientes;
 	private File archivoCombos;
+	private Pedido pedidoActual;
 
 	public Restaurante() {
 		this.archivoProductos = new File("/data/menu.txt");
@@ -87,6 +88,10 @@ public class Restaurante {
 			for (String productoAgregar : productos) {
 				ProductoMenu producto = encontrarProducto(productoAgregar);
 				nuevoCombo.agregarItemCombo(producto);
+			
+			listaCombos.add(nuevoCombo);
+			nuevoCombo = null;
+			
 			}
 
 		}
@@ -122,14 +127,48 @@ public class Restaurante {
 	}
 
 	public void iniciarPedido(String nombreCliente, String direccionCliente) {
+		pedidoActual = new Pedido(nombreCliente, direccionCliente);
+	}
+	
+	public void agregarProductoMenu (ProductoMenu producto) {
+		pedidoActual.agregarProducto(producto);
+	}
+	
+	public void agregarProductoAjustado(ProductoAjustado producto) {
+		pedidoActual.agregarProductoAjustado(producto);
 	}
 
+	public void agregarCombo(Combo combo) {
+		pedidoActual.agregarCombo(combo);
+	}
+	
 	public void cerraryGuardarPedido() {
+		boolean verificacion = pedidos.containsKey(String.valueOf(pedidoActual.getIdPedido()));
+
+		if (!verificacion) {
+			pedidos.put(String.valueOf(pedidoActual.getIdPedido()), pedidoActual);
+		} else {
+
+		}
+		
+		pedidoActual = null;
 
 	}
 
-	public void getPedidoEnCurso() {
-
+	public Pedido getPedidoEnCurso() {
+		return pedidoActual;
+	}
+	
+	public ArrayList<ProductoMenu> getListaProductos(){
+		return listaProductos;
+	}
+	
+	public ArrayList<Ingrediente> getListaIngredientes(){
+		return listaIngredientes;
+	}
+	
+	public ArrayList<Combo> getListaCombos(){
+		return listaCombos;
 	}
 
 }

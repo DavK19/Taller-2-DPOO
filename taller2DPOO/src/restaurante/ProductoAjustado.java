@@ -8,14 +8,14 @@ import java.util.ArrayList;
 public class ProductoAjustado {
 	private ProductoMenu base;
 	private String nombre;
-	private int precioBase;
+	private int precio;
 	private ArrayList<Ingrediente> agregados;
 	private ArrayList<Ingrediente> eliminados;
 	
 	public ProductoAjustado (ProductoMenu productoBase) {
 		this.base = productoBase;
 		this.nombre = productoBase.getNombre();
-		this.precioBase = productoBase.getPrecio();
+		this.precio = productoBase.getPrecio();
 	}
 	
 	public String getNombre () {
@@ -23,7 +23,7 @@ public class ProductoAjustado {
 	}
 	
 	public int getPrecio() {
-		return this.precioBase;
+		return this.precio;
 	}
 	
 	public String generarTextoFactura() {
@@ -32,9 +32,18 @@ public class ProductoAjustado {
 	
 	public void agregarIngrediente (Ingrediente agregado) {
 		this.agregados.add(agregado);
+		precio = precio + agregado.getCosto();
 	}
 	
 	public void eliminarIngredientes(Ingrediente eliminar) {
-		this.eliminados.add(eliminar);
+		
+		precio = precio - eliminar.getCosto();
+		
+		if (agregados.contains(eliminar)) {
+			agregados.remove(eliminar);
+		}else {
+			this.eliminados.add(eliminar);
+		}
+		
 	}
 }
