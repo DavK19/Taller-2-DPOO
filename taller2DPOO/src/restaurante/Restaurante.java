@@ -2,6 +2,7 @@ package restaurante;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -29,9 +30,12 @@ public class Restaurante {
 	private Pedido pedidoActual;
 
 	public Restaurante() {
-		this.archivoProductos = new File("C:\\Users\\Juand\\OneDrive\\Documentos\\Java\\Taller-2-DPOO\\taller2DPOO\\data\\menu.txt");
-		this.archivoIngredientes = new File("C:\\Users\\Juand\\OneDrive\\Documentos\\Java\\Taller-2-DPOO\\taller2DPOO\\data\\ingredientes.txt");
-		this.archivoCombos = new File("C:\\Users\\Juand\\OneDrive\\Documentos\\Java\\Taller-2-DPOO\\taller2DPOO\\data\\combos.txt");
+		this.archivoProductos = new File(
+				"C:\\Users\\Juand\\OneDrive\\Documentos\\Java\\Taller-2-DPOO\\taller2DPOO\\data\\menu.txt");
+		this.archivoIngredientes = new File(
+				"C:\\Users\\Juand\\OneDrive\\Documentos\\Java\\Taller-2-DPOO\\taller2DPOO\\data\\ingredientes.txt");
+		this.archivoCombos = new File(
+				"C:\\Users\\Juand\\OneDrive\\Documentos\\Java\\Taller-2-DPOO\\taller2DPOO\\data\\combos.txt");
 		try {
 			cargarInformacionRestaurante(this.archivoProductos, this.archivoIngredientes, this.archivoCombos);
 		} catch (Exception e) {
@@ -48,7 +52,8 @@ public class Restaurante {
 	}
 
 	public void cargarMenu(File archivoProductos) throws Exception {
-		BufferedReader in = new BufferedReader(new FileReader(archivoProductos));
+		FileReader fr = new FileReader(archivoProductos);
+		BufferedReader in = new BufferedReader(fr);
 		String linea = in.readLine();
 
 		while (linea != null) {
@@ -62,7 +67,8 @@ public class Restaurante {
 	}
 
 	public void cargarIngredientes(File archivoIngredientes) throws Exception {
-		BufferedReader in = new BufferedReader(new FileReader(archivoIngredientes));
+		FileReader fr = new FileReader(archivoIngredientes);
+		BufferedReader in = new BufferedReader(fr);
 		String linea = in.readLine();
 
 		while (linea != null) {
@@ -76,23 +82,23 @@ public class Restaurante {
 	}
 
 	public void cargarCombos(File archivoCombos) throws Exception {
-		BufferedReader in = new BufferedReader(new FileReader(archivoIngredientes));
+		FileReader fr = new FileReader(archivoCombos);
+		BufferedReader in = new BufferedReader(fr);
 		String linea = in.readLine();
 
 		while (linea != null) {
+
 			String[] palabras = linea.split(";");
 			Combo nuevoCombo = new Combo(palabras[0], Double.parseDouble(palabras[1].replace("%", "")));
 
-			String[] productos = Arrays.copyOfRange(palabras, 2, palabras.length);
-
-			for (String productoAgregar : productos) {
+			for (int i = 2; i < palabras.length; i++) {
+				String productoAgregar = palabras[i];
 				ProductoMenu producto = encontrarProducto(productoAgregar);
 				nuevoCombo.agregarItemCombo(producto);
-			
-			listaCombos.add(nuevoCombo);
-			nuevoCombo = null;
-			
 			}
+			listaCombos.add(nuevoCombo);
+
+			linea = in.readLine();
 
 		}
 
@@ -129,11 +135,11 @@ public class Restaurante {
 	public void iniciarPedido(String nombreCliente, String direccionCliente) {
 		pedidoActual = new Pedido(nombreCliente, direccionCliente);
 	}
-	
-	public void agregarProductoMenu (ProductoMenu producto) {
+
+	public void agregarProductoMenu(ProductoMenu producto) {
 		pedidoActual.agregarProducto(producto);
 	}
-	
+
 	public void agregarProductoAjustado(ProductoAjustado producto) {
 		pedidoActual.agregarProductoAjustado(producto);
 	}
@@ -141,7 +147,7 @@ public class Restaurante {
 	public void agregarCombo(Combo combo) {
 		pedidoActual.agregarCombo(combo);
 	}
-	
+
 	public void cerraryGuardarPedido() {
 		boolean verificacion = pedidos.containsKey(String.valueOf(pedidoActual.getIdPedido()));
 
@@ -150,27 +156,25 @@ public class Restaurante {
 		} else {
 			System.out.println("Ya existe un pedido con el mismo id");
 		}
-		
 		pedidoActual = null;
-
 	}
 
 	public Pedido getPedidoEnCurso() {
 		return pedidoActual;
 	}
-	
-	public ArrayList<ProductoMenu> getListaProductos(){
+
+	public ArrayList<ProductoMenu> getListaProductos() {
 		return listaProductos;
 	}
-	
-	public ArrayList<Ingrediente> getListaIngredientes(){
+
+	public ArrayList<Ingrediente> getListaIngredientes() {
 		return listaIngredientes;
 	}
-	
-	public ArrayList<Combo> getListaCombos(){
+
+	public ArrayList<Combo> getListaCombos() {
 		return listaCombos;
 	}
-	
+
 	public String getFactura() {
 		return pedidoActual.generarFactura();
 	}

@@ -10,9 +10,9 @@ import restaurante.ProductoAjustado;
 
 public class Producto {
 	
-	private ArrayList<Combo> combos;
-	private ArrayList<ProductoMenu> productosBase;
-	private ArrayList <ProductoAjustado>productosAjustados;
+	private ArrayList<Combo> combos = new ArrayList<Combo>();
+	private ArrayList<ProductoMenu> productosBase = new ArrayList<ProductoMenu>();
+	private ArrayList <ProductoAjustado> productosAjustados = new ArrayList <ProductoAjustado>();
 	private int precio = 0;
 	
 	public void agregarProductoMenu (ProductoMenu producto) {

@@ -9,8 +9,8 @@ public class ProductoAjustado {
 	private ProductoMenu base;
 	private String nombre;
 	private int precio;
-	private ArrayList<Ingrediente> agregados;
-	private ArrayList<Ingrediente> eliminados;
+	private ArrayList<Ingrediente> agregados = new ArrayList<Ingrediente>();
+	private ArrayList<Ingrediente> eliminados = new ArrayList<Ingrediente>();
 	
 	public ProductoAjustado (ProductoMenu productoBase) {
 		this.base = productoBase;

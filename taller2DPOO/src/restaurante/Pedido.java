@@ -19,6 +19,7 @@ public class Pedido {
 		this.direccionCliente = direccionCliente;
 		this.idPedido = numeroPedidos;
 		Pedido.numeroPedidos ++;
+		productos = new Producto();
 	}
 	
 	
