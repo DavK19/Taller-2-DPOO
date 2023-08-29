@@ -178,4 +178,17 @@ public class Restaurante {
 	public String getFactura() {
 		return pedidoActual.generarFactura();
 	}
+	
+	public boolean cambiarPedido (int idPedido) {
+		String llave = String.valueOf(idPedido);
+		boolean existe = pedidos.containsKey(llave);
+		
+		if (existe) {
+			pedidoActual = pedidos.get(llave);
+			return existe;
+		} else {
+			return existe;
+		}
+	}
 }
+	

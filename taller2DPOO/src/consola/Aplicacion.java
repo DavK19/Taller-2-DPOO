@@ -151,10 +151,29 @@ public class Aplicacion {
 						restaurante.cerraryGuardarPedido();
 					}
 				} else if (opcion == 4) {
-
+					System.out.println("Estas seguro de buscar otro pedido? El pedido actual se borrará");
+					System.out.println("1. Si");
+					System.out.println("2. No");
+					int numero = Integer.parseInt(input("Ingrese la opcion que desea elegir"));
+					if (numero == 1) {
+						int idPedido = Integer.parseInt(input("Ingrese el id del pedido a buscar"));
+						boolean existe = restaurante.cambiarPedido(idPedido);
+						
+						if (existe) {
+							System.out.println(String.format("El pedido %d ha sido cargado", idPedido));
+						} else {
+							System.out.println("El pedido no esta registrado en la base de datos");
+						}
+						
+					} else if (numero == 2) {
+						
+					}
 				} else if (opcion == 5) {
 					working = false;
 					System.out.println("Gracias por utilizar el asistente del restaurante");
+					
+					
+					
 				}
 
 			}
