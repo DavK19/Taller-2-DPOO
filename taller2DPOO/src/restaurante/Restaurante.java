@@ -19,9 +19,9 @@ import restaurante.Pedido;
 
 public class Restaurante {
 
-	private ArrayList<ProductoMenu> listaProductos;
-	private ArrayList<Ingrediente> listaIngredientes;
-	private ArrayList<Combo> listaCombos;
+	private ArrayList<ProductoMenu> listaProductos = new ArrayList<ProductoMenu>();
+	private ArrayList<Ingrediente> listaIngredientes = new ArrayList<Ingrediente>();
+	private ArrayList<Combo> listaCombos = new ArrayList<Combo>();
 	private Map<String, Pedido> pedidos = new HashMap<String, Pedido>();
 	private File archivoProductos;
 	private File archivoIngredientes;
@@ -29,9 +29,9 @@ public class Restaurante {
 	private Pedido pedidoActual;
 
 	public Restaurante() {
-		this.archivoProductos = new File("/data/menu.txt");
-		this.archivoIngredientes = new File("/data/ingredientes.txt");
-		this.archivoCombos = new File("/data/combos.txt");
+		this.archivoProductos = new File("C:\\Users\\Juand\\OneDrive\\Documentos\\Java\\Taller-2-DPOO\\taller2DPOO\\data\\menu.txt");
+		this.archivoIngredientes = new File("C:\\Users\\Juand\\OneDrive\\Documentos\\Java\\Taller-2-DPOO\\taller2DPOO\\data\\ingredientes.txt");
+		this.archivoCombos = new File("C:\\Users\\Juand\\OneDrive\\Documentos\\Java\\Taller-2-DPOO\\taller2DPOO\\data\\combos.txt");
 		try {
 			cargarInformacionRestaurante(this.archivoProductos, this.archivoIngredientes, this.archivoCombos);
 		} catch (Exception e) {
@@ -148,7 +148,7 @@ public class Restaurante {
 		if (!verificacion) {
 			pedidos.put(String.valueOf(pedidoActual.getIdPedido()), pedidoActual);
 		} else {
-
+			System.out.println("Ya existe un pedido con el mismo id");
 		}
 		
 		pedidoActual = null;
@@ -170,5 +170,8 @@ public class Restaurante {
 	public ArrayList<Combo> getListaCombos(){
 		return listaCombos;
 	}
-
+	
+	public String getFactura() {
+		return pedidoActual.generarFactura();
+	}
 }
