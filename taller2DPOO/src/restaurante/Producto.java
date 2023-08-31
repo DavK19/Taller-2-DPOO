@@ -54,6 +54,32 @@ public class Producto {
 		return total;
 	}
 	
+	public int getPrecioFinal() {
+		int total = 0;
+		
+		
+		if (combos.size() > 0) {
+			for (Combo combo: combos) {
+				total = total + combo.getPrecio();
+			}
+		}
+		
+		if (productosBase.size()>0) {
+			for (ProductoMenu producto: productosBase) {
+				total = total + producto.getPrecio();
+			}
+		}
+		
+		if (productosAjustados.size() > 0) {
+			for (ProductoAjustado producto: productosAjustados) {
+				total = total + producto.getPrecio();
+			}
+		}
+		
+		
+		return total;
+	}
+	
 	public String generarTextoFactura() {
 		return "Factura";
 	}
