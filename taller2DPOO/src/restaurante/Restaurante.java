@@ -136,16 +136,8 @@ public class Restaurante {
 		pedidoActual = new Pedido(nombreCliente, direccionCliente);
 	}
 
-	public void agregarProductoMenu(ProductoMenu producto) {
+	public void agregarProducto(Producto producto) {
 		pedidoActual.agregarProducto(producto);
-	}
-
-	public void agregarProductoAjustado(ProductoAjustado producto) {
-		pedidoActual.agregarProductoAjustado(producto);
-	}
-
-	public void agregarCombo(Combo combo) {
-		pedidoActual.agregarCombo(combo);
 	}
 
 	public void cerraryGuardarPedido() {
@@ -178,11 +170,11 @@ public class Restaurante {
 	public String getFactura() {
 		return pedidoActual.generarFactura();
 	}
-	
-	public boolean cambiarPedido (int idPedido) {
+
+	public boolean cambiarPedido(int idPedido) {
 		String llave = String.valueOf(idPedido);
 		boolean existe = pedidos.containsKey(llave);
-		
+
 		if (existe) {
 			pedidoActual = pedidos.get(llave);
 			return existe;
@@ -191,4 +183,3 @@ public class Restaurante {
 		}
 	}
 }
-	
