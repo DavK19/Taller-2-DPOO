@@ -18,6 +18,8 @@ public class ProductoMenu implements Producto {
 	}
 
 	public String getFactura() {
-		return "Factura";
+		String factura = String.format("%" + "s" + 10 + "d" + "\n", getNombre(), getPrecio());
+
+		return factura;
 	}
 }

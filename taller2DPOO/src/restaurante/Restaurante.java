@@ -30,12 +30,9 @@ public class Restaurante {
 	private Pedido pedidoActual;
 
 	public Restaurante() {
-		this.archivoProductos = new File(
-				"C:\\Users\\Juand\\OneDrive\\Documentos\\Java\\Taller-2-DPOO\\taller2DPOO\\data\\menu.txt");
-		this.archivoIngredientes = new File(
-				"C:\\Users\\Juand\\OneDrive\\Documentos\\Java\\Taller-2-DPOO\\taller2DPOO\\data\\ingredientes.txt");
-		this.archivoCombos = new File(
-				"C:\\Users\\Juand\\OneDrive\\Documentos\\Java\\Taller-2-DPOO\\taller2DPOO\\data\\combos.txt");
+		this.archivoProductos = new File("/data/menu.txt");
+		this.archivoIngredientes = new File("/data/ingredientes.txt");
+		this.archivoCombos = new File("/data/combos.txt");
 		try {
 			cargarInformacionRestaurante(this.archivoProductos, this.archivoIngredientes, this.archivoCombos);
 		} catch (Exception e) {
@@ -169,6 +166,10 @@ public class Restaurante {
 
 	public String getFactura() {
 		return pedidoActual.generarFactura();
+	}
+
+	public int getIdPedidoActual() {
+		return pedidoActual.getIdPedido();
 	}
 
 	public boolean cambiarPedido(int idPedido) {

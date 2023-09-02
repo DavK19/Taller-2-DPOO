@@ -1,10 +1,15 @@
 package consola;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -96,9 +101,18 @@ public class Aplicacion {
 		int opcionElegida = Integer.parseInt(input("Ingrese la opcion que desea elegir"));
 
 		if (opcionElegida == 1) {
+			
+			Path path = Paths.get(String.format("/facturas/%d.txt", String.valueOf(restaurante.getIdPedidoActual())));
+			String factura = restaurante.getFactura();
+			try {
+				Files.writeString(path, factura, StandardCharsets.UTF_8);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 			System.out.println("El pedido guardado es el siguiente:");
-			System.out.println(restaurante.getFactura());
+			System.out.println(factura);
 			restaurante.cerraryGuardarPedido();
 		}
 	}

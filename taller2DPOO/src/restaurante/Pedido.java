@@ -12,6 +12,7 @@ public class Pedido {
 	private int idPedido;
 	private String nombreCliente;
 	private String direccionCliente;
+	private int precioTotal = 0;
 	private ArrayList<Producto> listaProductos = new ArrayList<Producto>();
 
 	public Pedido(String nombreCliente, String direccionCliente) {
@@ -23,6 +24,7 @@ public class Pedido {
 
 	public void agregarProducto(Producto producto) {
 		listaProductos.add(producto);
+		precioTotal = precioTotal + producto.getPrecio();
 	}
 
 	public int getIdPedido() {
@@ -34,7 +36,18 @@ public class Pedido {
 	}
 
 	public String generarFactura() {
-		return "Factura";
+		String facturaFinal;
+		String id = "Id de la factura: " + String.valueOf(idPedido) + "\n";
+		String encabezado = String.format("%" + "s" + 10 + "s" + "\n", nombreCliente, direccionCliente);
+		String contenido = "";
+
+		for (Producto producto : listaProductos) {
+			contenido = contenido + producto.getFactura();
+		}
+
+		facturaFinal = id + encabezado + contenido;
+
+		return facturaFinal;
 	}
 
 }

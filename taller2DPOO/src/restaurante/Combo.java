@@ -33,8 +33,8 @@ public class Combo implements Producto {
 	}
 
 	public String getFactura() {
-		String cabecera = String.format("%"+ 10 + "s" + "\n", getNombre());
-		
-		return "Factura";
+		String factura = String.format("%" + "s" + 10 + "d" + "\n", getNombre(), getPrecio());
+
+		return factura;
 	}
 }
