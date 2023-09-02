@@ -101,15 +101,9 @@ public class Aplicacion {
 		int opcionElegida = Integer.parseInt(input("Ingrese la opcion que desea elegir"));
 
 		if (opcionElegida == 1) {
-			
-			Path path = Paths.get(String.format("/facturas/%d.txt", String.valueOf(restaurante.getIdPedidoActual())));
+
+			Path path = Paths.get(String.format("facturas/%d.txt", String.valueOf(restaurante.getIdPedidoActual())));
 			String factura = restaurante.getFactura();
-			try {
-				Files.writeString(path, factura, StandardCharsets.UTF_8);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 
 			System.out.println("El pedido guardado es el siguiente:");
 			System.out.println(factura);

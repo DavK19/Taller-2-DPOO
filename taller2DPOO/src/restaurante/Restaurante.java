@@ -30,9 +30,9 @@ public class Restaurante {
 	private Pedido pedidoActual;
 
 	public Restaurante() {
-		this.archivoProductos = new File("/data/menu.txt");
-		this.archivoIngredientes = new File("/data/ingredientes.txt");
-		this.archivoCombos = new File("/data/combos.txt");
+		this.archivoProductos = new File("data/menu.txt");
+		this.archivoIngredientes = new File("data/ingredientes.txt");
+		this.archivoCombos = new File("data/combos.txt");
 		try {
 			cargarInformacionRestaurante(this.archivoProductos, this.archivoIngredientes, this.archivoCombos);
 		} catch (Exception e) {

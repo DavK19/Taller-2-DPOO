@@ -27,21 +27,21 @@ public class ProductoAjustado implements Producto {
 	}
 
 	public String getFactura() {
-		
+
 		String nombreFinal = getNombre();
-		
+
 		if (agregados.size() > 0) {
 			nombreFinal = nombreFinal + "con adicion de" + "               " + String.valueOf(precio);
-			for (Ingrediente agregado: agregados) {
+			for (Ingrediente agregado : agregados) {
 				nombreFinal = nombreFinal + "\t" + agregado.getNombre() + "\n";
 			}
 		}
-		
+
 		if (eliminados.size() > 0) {
 			nombreFinal = nombreFinal + "sin \n";
-			
-			for (Ingrediente eliminado: eliminados) {
-				nombreFinal = nombreFinal + "\t" + eliminado.getNombre() + "\n"; 
+
+			for (Ingrediente eliminado : eliminados) {
+				nombreFinal = nombreFinal + "\t" + eliminado.getNombre() + "\n";
 			}
 		}
 
