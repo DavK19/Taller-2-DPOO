@@ -83,6 +83,7 @@ public class Aplicacion {
 
 			if (existe) {
 				System.out.println(String.format("El pedido %d ha sido cargado", idPedido));
+				System.out.println(restaurante.getFactura());
 			} else {
 				System.out.println("El pedido no esta registrado en la base de datos");
 			}
@@ -113,7 +114,7 @@ public class Aplicacion {
 				e.printStackTrace();
 			}
 
-			System.out.println("El pedido guardado es el siguiente:");
+			System.out.println("El pedido guardado es el siguiente:\n");
 			System.out.println(factura);
 			restaurante.cerraryGuardarPedido();
 		}

@@ -14,8 +14,8 @@ public class ProductoAjustado implements Producto {
 
 	public ProductoAjustado(ProductoMenu productoBase) {
 		this.base = productoBase;
-		this.nombre = productoBase.getNombre();
-		this.precio = productoBase.getPrecio();
+		this.nombre = base.getNombre();
+		this.precio = base.getPrecio();
 	}
 
 	public String getNombre() {
@@ -27,21 +27,26 @@ public class ProductoAjustado implements Producto {
 	}
 
 	public String getFactura() {
+		int L;
+		String precioString = String.valueOf(getPrecio());
+		
+		L = 60 - (getNombre().length() + precioString.length());
+		
 
-		String nombreFinal = getNombre();
+		String nombreFinal = getNombre() + ".".repeat(L) + precioString + "\n";
 
 		if (agregados.size() > 0) {
-			nombreFinal = nombreFinal + "con adicion de" + "               " + String.valueOf(precio);
+			nombreFinal = nombreFinal + "\t"+ "con adicion de" + "\n";
 			for (Ingrediente agregado : agregados) {
-				nombreFinal = nombreFinal + "\t" + agregado.getNombre() + "\n";
+				nombreFinal = nombreFinal + "\t\t-" + agregado.getNombre() + "\n";
 			}
 		}
 
 		if (eliminados.size() > 0) {
-			nombreFinal = nombreFinal + "sin \n";
+			nombreFinal = nombreFinal + "\t" + "sin \n";
 
 			for (Ingrediente eliminado : eliminados) {
-				nombreFinal = nombreFinal + "\t" + eliminado.getNombre() + "\n";
+				nombreFinal = nombreFinal + "\t\t-" + eliminado.getNombre() + "\n";
 			}
 		}
 

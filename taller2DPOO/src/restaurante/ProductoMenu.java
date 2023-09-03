@@ -18,7 +18,12 @@ public class ProductoMenu implements Producto {
 	}
 
 	public String getFactura() {
-		String factura = String.format("%" + "s" + 10 + "d" + "\n", getNombre(), getPrecio());
+		int L;
+		String precioString = String.valueOf(getPrecio());
+		
+		L = 60 - (getNombre().length() + precioString.length());
+		
+		String factura = String.format("%s" + ".".repeat(L)+ "%s" + "\n", getNombre(), precioString);
 
 		return factura;
 	}

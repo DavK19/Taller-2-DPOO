@@ -13,13 +13,13 @@ public class Combo implements Producto {
 
 	public Combo(String nombre, double descuento) {
 		this.nombreCombo = nombre;
-		this.descuento = descuento;
+		this.descuento = descuento/100;
 	}
 
 	public void agregarItemCombo(ProductoMenu producto) {
 		this.itemsCombo.add(producto);
 		precioBase = precioBase + producto.getPrecio();
-		precioFinal = precioBase * descuento;
+		precioFinal = precioBase - (precioBase * descuento);
 
 	}
 
@@ -33,7 +33,14 @@ public class Combo implements Producto {
 	}
 
 	public String getFactura() {
-		String factura = String.format("%" + "s" + 10 + "d" + "\n", getNombre(), getPrecio());
+		
+		int L;
+		String precioString = String.valueOf(getPrecio());
+		
+		L = 60 - (getNombre().length() + precioString.length());
+		
+		
+		String factura = String.format("%s" +".".repeat(L)+ "%s" + "\n", getNombre(), precioString);
 
 		return factura;
 	}
