@@ -20,10 +20,10 @@ public class ProductoMenu implements Producto {
 	public String getFactura() {
 		int L;
 		String precioString = String.valueOf(getPrecio());
-		
+
 		L = 60 - (getNombre().length() + precioString.length());
-		
-		String factura = String.format("%s" + ".".repeat(L)+ "%s" + "\n", getNombre(), precioString);
+
+		String factura = String.format("%s" + ".".repeat(L) + "%s" + "\n", getNombre(), precioString);
 
 		return factura;
 	}

@@ -9,14 +9,14 @@ public class Combo implements Producto {
 	private double descuento;
 	private int precioBase;
 	private Double precioFinal;
-	private ArrayList<ProductoMenu> itemsCombo = new ArrayList<ProductoMenu>();
+	private ArrayList<Producto> itemsCombo = new ArrayList<Producto>();
 
 	public Combo(String nombre, double descuento) {
 		this.nombreCombo = nombre;
 		this.descuento = descuento/100;
 	}
 
-	public void agregarItemCombo(ProductoMenu producto) {
+	public void agregarItemCombo(Producto producto) {
 		this.itemsCombo.add(producto);
 		precioBase = precioBase + producto.getPrecio();
 		precioFinal = precioBase - (precioBase * descuento);

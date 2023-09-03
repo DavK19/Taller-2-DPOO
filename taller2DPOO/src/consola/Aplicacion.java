@@ -21,6 +21,7 @@ import java.util.HashMap;
 import restaurante.ProductoMenu;
 import restaurante.ProductoAjustado;
 import restaurante.Producto;
+import restaurante.Bebida;
 import restaurante.Combo;
 import restaurante.Ingrediente;
 import restaurante.Pedido;
@@ -32,42 +33,83 @@ public class Aplicacion {
 	private ArrayList<ProductoMenu> listaProductos;
 	private ArrayList<Ingrediente> listaIngredientes;
 	private ArrayList<Combo> listaCombos;
+	private ArrayList<Bebida> listaBebidas;
 
 	public void ejecutarAplicacion() {
 
 		boolean working = true;
 		int opcion;
-		restaurante = new Restaurante();
+
+		System.out.println("Desea utilizar la version base del programa o la version modificada?");
+		System.out.println("1. Version base");
+		System.out.println("2. Version Modificada");
+
+		int modificacion = Integer.parseInt(input(""));
+
+		restaurante = new Restaurante(modificacion);
 		listaProductos = restaurante.getListaProductos();
 		listaIngredientes = restaurante.getListaIngredientes();
 		listaCombos = restaurante.getListaCombos();
 
-		try {
-			while (working) {
-				mostrarMenu();
-				opcion = Integer.parseInt(input("Ingrese la opcion a elegir"));
-				if (opcion == 1) {
-					String nombreCliente = input("Ingrese el nombre del cliente");
-					String direccionCliente = input("Ingrese la direccion del cliente");
+		if (modificacion == 1) {
 
-					restaurante.iniciarPedido(nombreCliente, direccionCliente);
-				} else if (opcion == 2) {
-					agregarProducto();
+			try {
+				while (working) {
+					mostrarMenu();
+					opcion = Integer.parseInt(input("Ingrese la opcion a elegir"));
+					if (opcion == 1) {
+						String nombreCliente = input("Ingrese el nombre del cliente");
+						String direccionCliente = input("Ingrese la direccion del cliente");
 
-				} else if (opcion == 3) {
-					cerrarPedido();
+						restaurante.iniciarPedido(nombreCliente, direccionCliente);
+					} else if (opcion == 2) {
+						agregarProducto();
 
-				} else if (opcion == 4) {
-					buscarPedido();
-				} else if (opcion == 5) {
-					working = false;
-					System.out.println("Gracias por utilizar el asistente del restaurante");
+					} else if (opcion == 3) {
+						cerrarPedido();
+
+					} else if (opcion == 4) {
+						buscarPedido();
+					} else if (opcion == 5) {
+						working = false;
+						System.out.println("Gracias por utilizar el asistente del restaurante");
+
+					}
 
 				}
-
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		} else if (modificacion == 2) {
+			listaBebidas = restaurante.getListaBebidas();
+			try {
+				while (working) {
+					mostrarMenu();
+					opcion = Integer.parseInt(input("Ingrese la opcion a elegir"));
+					if (opcion == 1) {
+						String nombreCliente = input("Ingrese el nombre del cliente");
+						String direccionCliente = input("Ingrese la direccion del cliente");
+
+						restaurante.iniciarPedido(nombreCliente, direccionCliente);
+					} else if (opcion == 2) {
+						agregarProductoModificacion();
+
+					} else if (opcion == 3) {
+						cerrarPedido();
+
+					} else if (opcion == 4) {
+						buscarPedido();
+					} else if (opcion == 5) {
+						working = false;
+						System.out.println("Gracias por utilizar el asistente del restaurante");
+
+					} else {
+						System.out.println("No ingreso una opcion correcta, vuelva a intentarlo");
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
@@ -106,7 +148,8 @@ public class Aplicacion {
 			String factura = restaurante.getFactura();
 
 			try {
-				PrintWriter archivo = new PrintWriter(String.format("facturas/%d.txt", restaurante.getIdPedidoActual()));
+				PrintWriter archivo = new PrintWriter(
+						String.format("facturas/%d.txt", restaurante.getIdPedidoActual()));
 				archivo.println(factura);
 				archivo.close();
 			} catch (IOException e) {
@@ -211,6 +254,111 @@ public class Aplicacion {
 
 	}
 
+	private void agregarProductoModificacion() {
+		System.out.println("Que tipo de producto desea agregar: ");
+		System.out.println("1. Producto del menu");
+		System.out.println("2. Bebida");
+		System.out.println("3. Combo");
+
+		int opcion = Integer.parseInt(input("Ingrese la opcion a elegir"));
+
+		if (opcion == 1) {
+			mostrarProductos();
+			int productoElegido = Integer.parseInt(input("Ingrese el producto que desea elegir"));
+
+			if (productoElegido >= 0 && productoElegido < listaProductos.size()) {
+				ProductoMenu productoBase = listaProductos.get(productoElegido);
+				System.out.println("Desea modificar el producto: ");
+				System.out.println("1.Si");
+				System.out.println("2.No");
+
+				opcion = Integer.parseInt(input("Ingrese la opcion a elegir"));
+
+				if (opcion == 1) {
+					ProductoAjustado productoFinal = new ProductoAjustado(productoBase);
+					boolean modificar = true;
+
+					while (modificar) {
+
+						System.out.println("Desea agregar o eliminar un ingrediente?");
+						System.out.println("1.Agregar");
+						System.out.println("2.Eliminar");
+
+						int opcionIngrediente = Integer.parseInt(input("Ingrese la opcion a elegir que desea elegir"));
+
+						if (opcionIngrediente == 1) {
+							mostrarIngredientes();
+
+							int numeroIngrediente = Integer.parseInt(input("Ingrese el ingrediente que desea elegir"));
+
+							Ingrediente agregar = listaIngredientes.get(numeroIngrediente);
+
+							productoFinal.agregarIngrediente(agregar);
+
+						} else if (opcionIngrediente == 2) {
+							mostrarIngredientes();
+
+							int numeroIngrediente1 = Integer.parseInt(input("Ingrese el ingrediente que desea elegir"));
+
+							Ingrediente quitar = listaIngredientes.get(numeroIngrediente1);
+
+							productoFinal.eliminarIngredientes(quitar);
+
+						} else {
+							System.out.println("No ingreso una opcion valida");
+						}
+						System.out.println("Desea seguir modificando el producto?");
+						System.out.println("1.Si");
+						System.out.println("2.No");
+
+						int continuar = Integer.parseInt(input("Ingrese la opcion a elegir"));
+
+						if (continuar == 2) {
+							modificar = false;
+							restaurante.agregarProducto(productoFinal);
+
+						} else {
+							System.out.println("No ingreso una opcion valida");
+						}
+					}
+
+				} else if (opcion == 2) {
+					restaurante.agregarProducto(productoBase);
+
+				} else {
+					System.out.println("Ingrese una opcion valida");
+				}
+
+			} else {
+				System.out.println("No es un producto valido");
+			}
+		} else if (opcion == 2) {
+			mostrarBebidas();
+			int bebidaElegida = Integer.parseInt(input("Ingrese el producto que desea elegir"));
+
+			if (bebidaElegida >= 0 && bebidaElegida < listaBebidas.size()) {
+				Bebida bebidaAgregar = listaBebidas.get(bebidaElegida);
+				restaurante.agregarProducto(bebidaAgregar);
+			} else {
+				System.out.println("No es un producto valido");
+			}
+
+		} else if (opcion == 3) {
+			mostrarCombos();
+			int comboElegido = Integer.parseInt(input("Ingrese el producto que desea elegir"));
+
+			if (comboElegido >= 0 && comboElegido < listaCombos.size()) {
+				Combo comboAgregar = listaCombos.get(comboElegido);
+				restaurante.agregarProducto(comboAgregar);
+			} else {
+				System.out.println("No es un producto valido");
+			}
+		} else {
+			System.out.println("No has ingresado una opcion valida");
+		}
+
+	}
+
 	public void mostrarMenu() {
 		System.out.println("Bienvenido al asistente para tomar pedidos del restaurante ¿Que desea hacer?");
 		System.out.println("1.Tomar un nuevo pedido");
@@ -238,6 +386,13 @@ public class Aplicacion {
 	public void mostrarCombos() {
 		for (int i = 0; i < listaCombos.size(); i++) {
 			String nombre = listaCombos.get(i).getNombre();
+			System.out.println(String.format("%d. %s", i, nombre));
+		}
+	}
+
+	public void mostrarBebidas() {
+		for (int i = 0; i < listaBebidas.size(); i++) {
+			String nombre = listaBebidas.get(i).getNombre();
 			System.out.println(String.format("%d. %s", i, nombre));
 		}
 	}

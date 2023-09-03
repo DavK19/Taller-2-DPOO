@@ -17,27 +17,47 @@ import restaurante.ProductoMenu;
 import restaurante.Ingrediente;
 import restaurante.Combo;
 import restaurante.Pedido;
+import restaurante.Bebida;
 
 public class Restaurante {
 
 	private ArrayList<ProductoMenu> listaProductos = new ArrayList<ProductoMenu>();
 	private ArrayList<Ingrediente> listaIngredientes = new ArrayList<Ingrediente>();
 	private ArrayList<Combo> listaCombos = new ArrayList<Combo>();
+	private ArrayList<Bebida> listaBebidas = new ArrayList<Bebida>();
 	private Map<String, Pedido> pedidos = new HashMap<String, Pedido>();
 	private File archivoProductos;
 	private File archivoIngredientes;
 	private File archivoCombos;
 	private Pedido pedidoActual;
+	private int modificacion;
 
-	public Restaurante() {
-		this.archivoProductos = new File("data/menu.txt");
-		this.archivoIngredientes = new File("data/ingredientes.txt");
-		this.archivoCombos = new File("data/combos.txt");
-		try {
-			cargarInformacionRestaurante(this.archivoProductos, this.archivoIngredientes, this.archivoCombos);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public Restaurante(int modificacion) {
+		this.modificacion = modificacion;
+		if (modificacion == 1) {
+			this.archivoProductos = new File("data/menu.txt");
+			this.archivoIngredientes = new File("data/ingredientes.txt");
+			this.archivoCombos = new File("data/combos.txt");
+			try {
+				cargarInformacionRestaurante(this.archivoProductos, this.archivoIngredientes, this.archivoCombos);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else if (modificacion == 2) {
+			File archivoBebidas;
+			this.archivoProductos = new File("data/menuPlatos.txt");
+			this.archivoIngredientes = new File("data/ingredientes.txt");
+			this.archivoCombos = new File("data/combos.txt");
+			archivoBebidas = new File("data/menuBebidas.txt");
+			try {
+				cargarInformacionModificada(this.archivoProductos, this.archivoIngredientes, this.archivoCombos,
+						archivoBebidas);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
 	}
 
@@ -46,6 +66,30 @@ public class Restaurante {
 		cargarMenu(archivoProductos);
 		cargarIngredientes(archivoIngredientes);
 		cargarCombos(archivoCombos);
+	}
+
+	public void cargarInformacionModificada(File archivoProductos, File archivoIngredientes, File archivoCombos,
+			File archivoBebidas) throws Exception {
+		cargarMenu(archivoProductos);
+		cargarIngredientes(archivoIngredientes);
+		cargarBebidas(archivoBebidas);
+		cargarCombos(archivoCombos);
+		
+	}
+
+	public void cargarBebidas(File archivoBebidas) throws Exception {
+		FileReader fr = new FileReader(archivoBebidas);
+		BufferedReader in = new BufferedReader(fr);
+		String linea = in.readLine();
+
+		while (linea != null) {
+			String[] palabras = linea.split(";");
+			Bebida nuevoProducto = new Bebida(palabras[0], Integer.parseInt(palabras[1]));
+			listaBebidas.add(nuevoProducto);
+			linea = in.readLine();
+		}
+
+		in.close();
 	}
 
 	public void cargarMenu(File archivoProductos) throws Exception {
@@ -90,7 +134,7 @@ public class Restaurante {
 
 			for (int i = 2; i < palabras.length; i++) {
 				String productoAgregar = palabras[i];
-				ProductoMenu producto = encontrarProducto(productoAgregar);
+				Producto producto = encontrarProducto(productoAgregar);
 				nuevoCombo.agregarItemCombo(producto);
 			}
 			listaCombos.add(nuevoCombo);
@@ -102,7 +146,7 @@ public class Restaurante {
 		in.close();
 	}
 
-	public ProductoMenu encontrarProducto(String nombreProducto) {
+	public Producto encontrarProducto(String nombreProducto) {
 
 		for (ProductoMenu producto : listaProductos) {
 
@@ -112,6 +156,14 @@ public class Restaurante {
 
 			}
 
+		}
+		if (modificacion == 2) {
+			for (Bebida bebida : listaBebidas) {
+				if (bebida.getNombre().equals(nombreProducto)) {
+
+					return bebida;
+				}
+			}
 		}
 		return null;
 	}
@@ -162,6 +214,10 @@ public class Restaurante {
 
 	public ArrayList<Combo> getListaCombos() {
 		return listaCombos;
+	}
+
+	public ArrayList<Bebida> getListaBebidas() {
+		return listaBebidas;
 	}
 
 	public String getFactura() {
