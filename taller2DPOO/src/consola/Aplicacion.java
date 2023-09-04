@@ -161,7 +161,7 @@ public class Aplicacion {
 			System.out.println(factura);
 			boolean existe = restaurante.cerraryGuardarPedido();
 			if (modificacion == 2 && existe) {
-				System.out.println("Ademas, existe al menos un pedido igual");
+				System.out.println("Ademas, existe al menos un pedido igual\n");
 			}
 		}
 	}
@@ -363,7 +363,7 @@ public class Aplicacion {
 	}
 
 	public void mostrarMenu() {
-		System.out.println("Bienvenido al asistente para tomar pedidos del restaurante ¿Que desea hacer?");
+		System.out.println("\nBienvenido al asistente para tomar pedidos del restaurante ¿Que desea hacer?");
 		System.out.println("1.Tomar un nuevo pedido");
 		System.out.println("2.Agregar un nuevo elemento al pedido");
 		System.out.println("3.Cerrar y guardar el pedido");

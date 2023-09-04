@@ -82,7 +82,7 @@ public class Pedido {
 
 		boolean iguales = true;
 		int i = 0;
-		while (iguales) {
+		while (iguales && i < listaProductos.size()) {
 			Producto producto = listaProductos.get(i);
 			Pedido otroPedido = (Pedido) otro;
 			ArrayList<Producto> otroProductos = otroPedido.getListaProductos();
