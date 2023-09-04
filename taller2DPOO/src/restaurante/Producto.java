@@ -13,4 +13,5 @@ public interface Producto {
 	public abstract String getNombre();
 
 	public abstract String getFactura();
+
 }

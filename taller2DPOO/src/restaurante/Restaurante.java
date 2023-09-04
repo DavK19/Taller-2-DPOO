@@ -25,7 +25,7 @@ public class Restaurante {
 	private ArrayList<Ingrediente> listaIngredientes = new ArrayList<Ingrediente>();
 	private ArrayList<Combo> listaCombos = new ArrayList<Combo>();
 	private ArrayList<Bebida> listaBebidas = new ArrayList<Bebida>();
-	private Map<String, Pedido> pedidos = new HashMap<String, Pedido>();
+	private ArrayList<Pedido> listaPedidos = new ArrayList<Pedido>();
 	private File archivoProductos;
 	private File archivoIngredientes;
 	private File archivoCombos;
@@ -74,7 +74,7 @@ public class Restaurante {
 		cargarIngredientes(archivoIngredientes);
 		cargarBebidas(archivoBebidas);
 		cargarCombos(archivoCombos);
-		
+
 	}
 
 	public void cargarBebidas(File archivoBebidas) throws Exception {
@@ -189,15 +189,19 @@ public class Restaurante {
 		pedidoActual.agregarProducto(producto);
 	}
 
-	public void cerraryGuardarPedido() {
-		boolean verificacion = pedidos.containsKey(String.valueOf(pedidoActual.getIdPedido()));
+	public boolean cerraryGuardarPedido() {
 
-		if (!verificacion) {
-			pedidos.put(String.valueOf(pedidoActual.getIdPedido()), pedidoActual);
-		} else {
-			System.out.println("Ya existe un pedido con el mismo id");
+		boolean repetido = false;
+		if (modificacion == 2) {
+			for (Pedido pedido : listaPedidos) {
+				if (pedido.equals(pedidoActual)) {
+					repetido = true;
+				}
+			}
 		}
+		listaPedidos.add(pedidoActual);
 		pedidoActual = null;
+		return repetido;
 	}
 
 	public Pedido getPedidoEnCurso() {
@@ -229,14 +233,12 @@ public class Restaurante {
 	}
 
 	public boolean cambiarPedido(int idPedido) {
-		String llave = String.valueOf(idPedido);
-		boolean existe = pedidos.containsKey(llave);
-
-		if (existe) {
-			pedidoActual = pedidos.get(llave);
-			return existe;
-		} else {
-			return existe;
+		for (Pedido pedido : listaPedidos) {
+			if (pedido.getIdPedido() == idPedido) {
+				pedidoActual = pedido;
+				return true;
+			}
 		}
+		return false;
 	}
 }

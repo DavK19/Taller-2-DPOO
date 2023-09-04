@@ -29,14 +29,13 @@ public class ProductoAjustado implements Producto {
 	public String getFactura() {
 		int L;
 		String precioString = String.valueOf(getPrecio());
-		
+
 		L = 60 - (getNombre().length() + precioString.length());
-		
 
 		String nombreFinal = getNombre() + ".".repeat(L) + precioString + "\n";
 
 		if (agregados.size() > 0) {
-			nombreFinal = nombreFinal + "\t"+ "con adicion de" + "\n";
+			nombreFinal = nombreFinal + "\t" + "con adicion de" + "\n";
 			for (Ingrediente agregado : agregados) {
 				nombreFinal = nombreFinal + "\t\t-" + agregado.getNombre() + "\n";
 			}
@@ -68,5 +67,69 @@ public class ProductoAjustado implements Producto {
 			this.eliminados.add(eliminar);
 		}
 
+	}
+
+	public int sizeAgregados() {
+		return agregados.size();
+	}
+
+	public int sizeEliminados() {
+		return eliminados.size();
+	}
+
+	public ArrayList<Ingrediente> getAgregados() {
+		return agregados;
+	}
+
+	public ArrayList<Ingrediente> getEliminados() {
+		return eliminados;
+	}
+
+	@Override
+	public boolean equals(Object otro) {
+		if (!(otro instanceof ProductoAjustado)) {
+			return false;
+		} else {
+			ProductoAjustado otroProducto = (ProductoAjustado) otro;
+			if (!(nombre.equals(otroProducto.getNombre()))) {
+				return false;
+			} else {
+				if ((sizeEliminados() == otroProducto.sizeEliminados())
+						&& (sizeAgregados() == otroProducto.sizeAgregados())) {
+					ArrayList<Ingrediente> otroAgregados = otroProducto.getAgregados();
+
+					boolean encontrado = false;
+					int i = 0;
+					while (!encontrado && i < agregados.size()) {
+						Ingrediente origen = agregados.get(i);
+						if (otroAgregados.contains(origen)) {
+							encontrado = encontrado || true;
+						} else {
+							encontrado = encontrado || false;
+						}
+						i++;
+					}
+
+					ArrayList<Ingrediente> otroEliminados = otroProducto.getEliminados();
+					i = 0;
+					while (!encontrado && i < eliminados.size()) {
+						Ingrediente origen = eliminados.get(i);
+						if (otroEliminados.contains(origen)) {
+							encontrado = encontrado || true;
+						} else {
+							encontrado = encontrado || false;
+						}
+					}
+
+					if (!encontrado) {
+						return false;
+					} else {
+						return true;
+					}
+				} else {
+					return false;
+				}
+			}
+		}
 	}
 }

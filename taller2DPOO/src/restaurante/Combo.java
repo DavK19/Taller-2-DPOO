@@ -13,7 +13,7 @@ public class Combo implements Producto {
 
 	public Combo(String nombre, double descuento) {
 		this.nombreCombo = nombre;
-		this.descuento = descuento/100;
+		this.descuento = descuento / 100;
 	}
 
 	public void agregarItemCombo(Producto producto) {
@@ -33,15 +33,30 @@ public class Combo implements Producto {
 	}
 
 	public String getFactura() {
-		
+
 		int L;
 		String precioString = String.valueOf(getPrecio());
-		
+
 		L = 60 - (getNombre().length() + precioString.length());
-		
-		
-		String factura = String.format("%s" +".".repeat(L)+ "%s" + "\n", getNombre(), precioString);
+
+		String factura = String.format("%s" + ".".repeat(L) + "%s" + "\n", getNombre(), precioString);
 
 		return factura;
+	}
+
+	@Override
+	public boolean equals(Object otro) {
+		if (!(otro instanceof Combo)) {
+			return false;
+		} else {
+			Combo otroCombo = (Combo) otro;
+			if (!(nombreCombo.equals(otroCombo.getNombre()))) {
+				return false;
+
+			} else {
+				return true;
+
+			}
+		}
 	}
 }

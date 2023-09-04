@@ -66,7 +66,7 @@ public class Aplicacion {
 						agregarProducto();
 
 					} else if (opcion == 3) {
-						cerrarPedido();
+						cerrarPedido(modificacion);
 
 					} else if (opcion == 4) {
 						buscarPedido();
@@ -95,7 +95,7 @@ public class Aplicacion {
 						agregarProductoModificacion();
 
 					} else if (opcion == 3) {
-						cerrarPedido();
+						cerrarPedido(modificacion);
 
 					} else if (opcion == 4) {
 						buscarPedido();
@@ -137,7 +137,7 @@ public class Aplicacion {
 		}
 	}
 
-	private void cerrarPedido() {
+	private void cerrarPedido(int modificacion) {
 		System.out.println("Esta seguro de que desea cerrar el pedido");
 		System.out.println("1. Si");
 		System.out.println("2. No");
@@ -159,7 +159,10 @@ public class Aplicacion {
 
 			System.out.println("El pedido guardado es el siguiente:\n");
 			System.out.println(factura);
-			restaurante.cerraryGuardarPedido();
+			boolean existe = restaurante.cerraryGuardarPedido();
+			if (modificacion == 2 && existe) {
+				System.out.println("Ademas, existe al menos un pedido igual");
+			}
 		}
 	}
 
