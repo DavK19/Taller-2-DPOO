@@ -2,22 +2,8 @@ package restaurante;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.HashMap;
-
-import restaurante.ProductoAjustado;
-import restaurante.ProductoMenu;
-import restaurante.Ingrediente;
-import restaurante.Combo;
-import restaurante.Pedido;
-import restaurante.Bebida;
 
 public class Restaurante {
 

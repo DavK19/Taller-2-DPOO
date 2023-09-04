@@ -1,30 +1,15 @@
 package consola;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.HashMap;
-
 import restaurante.ProductoMenu;
 import restaurante.ProductoAjustado;
-import restaurante.Producto;
 import restaurante.Bebida;
 import restaurante.Combo;
 import restaurante.Ingrediente;
-import restaurante.Pedido;
 import restaurante.Restaurante;
 
 public class Aplicacion {

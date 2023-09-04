@@ -1,8 +1,5 @@
 package restaurante;
 
-import restaurante.ProductoMenu;
-import restaurante.Ingrediente;
-
 import java.util.ArrayList;
 
 public class ProductoAjustado implements Producto {

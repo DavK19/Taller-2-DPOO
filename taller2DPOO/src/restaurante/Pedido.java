@@ -1,11 +1,6 @@
 package restaurante;
 
-import restaurante.ProductoMenu;
-import restaurante.ProductoAjustado;
-
 import java.util.ArrayList;
-
-import restaurante.Combo;
 
 public class Pedido {
 	private static int numeroPedidos = 0;

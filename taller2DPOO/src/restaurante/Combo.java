@@ -1,6 +1,5 @@
 package restaurante;
 
-import restaurante.ProductoMenu;
 import java.util.ArrayList;
 
 public class Combo implements Producto {
