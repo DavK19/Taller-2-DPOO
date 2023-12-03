@@ -5,6 +5,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 
+import exceptions.HamburguesaException;
+import exceptions.ProductoRepetidoException;
+import exceptions.SobreprecioPedidoException;
+
 public class Restaurante {
 
 	private ArrayList<ProductoMenu> listaProductos = new ArrayList<ProductoMenu>();
@@ -23,11 +27,12 @@ public class Restaurante {
 		if (modificacion == 1) {
 			this.archivoProductos = new File("data/menu.txt");
 			this.archivoIngredientes = new File("data/ingredientes.txt");
-			this.archivoCombos = new File("data/combos.txt");
 			try {
 				cargarInformacionRestaurante(this.archivoProductos, this.archivoIngredientes, this.archivoCombos);
+			} catch (HamburguesaException e) {
+				System.out.println("Se encontraron productos repetidos al cargar los datos, la información detallada a continuación:\n" + e.getLocalizedMessage());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				System.out.println("Ocurrio un error cargando los datos " + e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 		} else if (modificacion == 2) {
@@ -39,8 +44,10 @@ public class Restaurante {
 			try {
 				cargarInformacionModificada(this.archivoProductos, this.archivoIngredientes, this.archivoCombos,
 						archivoBebidas);
+			} catch (HamburguesaException e) {
+				System.out.println("Se encontraron productos repetidos al cargar los datos, la información detallada a continuación:\n" + e.getLocalizedMessage());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
+				System.out.println("Ocurrio un error cargando los datos " + e.getLocalizedMessage());
 				e.printStackTrace();
 			}
 
@@ -48,14 +55,14 @@ public class Restaurante {
 	}
 
 	public void cargarInformacionRestaurante(File archivoProductos, File archivoIngredientes, File archivoCombos)
-			throws Exception {
+			throws Exception, HamburguesaException {
 		cargarMenu(archivoProductos);
 		cargarIngredientes(archivoIngredientes);
 		cargarCombos(archivoCombos);
 	}
 
 	public void cargarInformacionModificada(File archivoProductos, File archivoIngredientes, File archivoCombos,
-			File archivoBebidas) throws Exception {
+			File archivoBebidas) throws Exception, HamburguesaException {
 		cargarMenu(archivoProductos);
 		cargarIngredientes(archivoIngredientes);
 		cargarBebidas(archivoBebidas);
@@ -63,7 +70,7 @@ public class Restaurante {
 
 	}
 
-	public void cargarBebidas(File archivoBebidas) throws Exception {
+	public void cargarBebidas(File archivoBebidas) throws Exception, HamburguesaException {
 		FileReader fr = new FileReader(archivoBebidas);
 		BufferedReader in = new BufferedReader(fr);
 		String linea = in.readLine();
@@ -78,7 +85,7 @@ public class Restaurante {
 		in.close();
 	}
 
-	public void cargarMenu(File archivoProductos) throws Exception {
+	public void cargarMenu(File archivoProductos) throws Exception, HamburguesaException {
 		FileReader fr = new FileReader(archivoProductos);
 		BufferedReader in = new BufferedReader(fr);
 		String linea = in.readLine();
@@ -86,14 +93,19 @@ public class Restaurante {
 		while (linea != null) {
 			String[] palabras = linea.split(";");
 			ProductoMenu nuevoProducto = new ProductoMenu(palabras[0], Integer.parseInt(palabras[1]));
-			listaProductos.add(nuevoProducto);
-			linea = in.readLine();
+			
+			if (listaProductos.contains(nuevoProducto)) {
+				throw new ProductoRepetidoException(nuevoProducto.getNombre());
+			}else {
+				listaProductos.add(nuevoProducto);
+				linea = in.readLine();
+			}
+			
 		}
-
 		in.close();
 	}
 
-	public void cargarIngredientes(File archivoIngredientes) throws Exception {
+	public void cargarIngredientes(File archivoIngredientes) throws Exception, HamburguesaException {
 		FileReader fr = new FileReader(archivoIngredientes);
 		BufferedReader in = new BufferedReader(fr);
 		String linea = in.readLine();
@@ -104,11 +116,11 @@ public class Restaurante {
 			listaIngredientes.add(nuevoIngrediente);
 			linea = in.readLine();
 		}
-
+		
 		in.close();
 	}
 
-	public void cargarCombos(File archivoCombos) throws Exception {
+	public void cargarCombos(File archivoCombos) throws Exception, HamburguesaException {
 		FileReader fr = new FileReader(archivoCombos);
 		BufferedReader in = new BufferedReader(fr);
 		String linea = in.readLine();
@@ -171,8 +183,19 @@ public class Restaurante {
 		pedidoActual = new Pedido(nombreCliente, direccionCliente);
 	}
 
-	public void agregarProducto(Producto producto) {
-		pedidoActual.agregarProducto(producto);
+	public void agregarProducto(Producto producto) throws SobreprecioPedidoException {
+		if(pedidoActual == null) {
+			System.out.println("No tienes ningún pedido inicializado");
+		}else {
+			
+			int precioActual = pedidoActual.getPrecioTotalPedido();
+			
+			if (precioActual + producto.getPrecio() > 150000) {
+				throw new SobreprecioPedidoException();
+			} else {
+				pedidoActual.agregarProducto(producto);
+			}
+		}
 	}
 
 	public boolean cerraryGuardarPedido() {

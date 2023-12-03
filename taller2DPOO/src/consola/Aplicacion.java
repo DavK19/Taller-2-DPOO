@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+
+import exceptions.SobreprecioPedidoException;
 import restaurante.ProductoMenu;
 import restaurante.ProductoAjustado;
 import restaurante.Bebida;
@@ -211,7 +213,11 @@ public class Aplicacion {
 
 						if (continuar == 2) {
 							modificar = false;
-							restaurante.agregarProducto(productoFinal);
+							try {
+								restaurante.agregarProducto(productoFinal);
+							} catch (SobreprecioPedidoException e) {
+								System.out.println(e.getLocalizedMessage());
+							}
 
 						} else {
 							System.out.println("No ingreso una opcion valida");
@@ -219,7 +225,11 @@ public class Aplicacion {
 					}
 
 				} else if (opcion == 2) {
-					restaurante.agregarProducto(productoBase);
+					try {
+						restaurante.agregarProducto(productoBase);
+					} catch (SobreprecioPedidoException e) {
+						System.out.println(e.getLocalizedMessage());
+					}
 
 				} else {
 					System.out.println("Ingrese una opcion valida");
@@ -234,7 +244,13 @@ public class Aplicacion {
 
 			if (comboElegido >= 0 && comboElegido < listaCombos.size()) {
 				Combo comboAgregar = listaCombos.get(comboElegido);
-				restaurante.agregarProducto(comboAgregar);
+
+				try {
+					restaurante.agregarProducto(comboAgregar);
+				} catch (SobreprecioPedidoException e) {
+					System.out.println(e.getLocalizedMessage());
+				}
+
 			}
 		} else {
 			System.out.println("No has ingresado una opcion valida");
@@ -303,7 +319,11 @@ public class Aplicacion {
 
 						if (continuar == 2) {
 							modificar = false;
-							restaurante.agregarProducto(productoFinal);
+							try {
+								restaurante.agregarProducto(productoFinal);
+							} catch (SobreprecioPedidoException e) {
+								System.out.println(e.getLocalizedMessage());
+							}
 
 						} else {
 							System.out.println("No ingreso una opcion valida");
@@ -311,7 +331,11 @@ public class Aplicacion {
 					}
 
 				} else if (opcion == 2) {
-					restaurante.agregarProducto(productoBase);
+					try {
+						restaurante.agregarProducto(productoBase);
+					} catch (SobreprecioPedidoException e) {
+						System.out.println(e.getLocalizedMessage());
+					}
 
 				} else {
 					System.out.println("Ingrese una opcion valida");
@@ -326,7 +350,13 @@ public class Aplicacion {
 
 			if (bebidaElegida >= 0 && bebidaElegida < listaBebidas.size()) {
 				Bebida bebidaAgregar = listaBebidas.get(bebidaElegida);
-				restaurante.agregarProducto(bebidaAgregar);
+
+				try {
+					restaurante.agregarProducto(bebidaAgregar);
+				} catch (SobreprecioPedidoException e) {
+					System.out.println(e.getLocalizedMessage());
+				}
+
 			} else {
 				System.out.println("No es un producto valido");
 			}
@@ -337,7 +367,13 @@ public class Aplicacion {
 
 			if (comboElegido >= 0 && comboElegido < listaCombos.size()) {
 				Combo comboAgregar = listaCombos.get(comboElegido);
-				restaurante.agregarProducto(comboAgregar);
+
+				try {
+					restaurante.agregarProducto(comboAgregar);
+				} catch (SobreprecioPedidoException e) {
+					System.out.println(e.getLocalizedMessage());
+				}
+
 			} else {
 				System.out.println("No es un producto valido");
 			}

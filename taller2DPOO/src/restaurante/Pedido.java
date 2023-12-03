@@ -64,7 +64,7 @@ public class Pedido {
 		return precioIVA.intValue();
 	}
 
-	private int getPrecioTotalPedido() {
+	public int getPrecioTotalPedido() {
 		return precioNeto + getPrecioIVAPedido();
 	}
 

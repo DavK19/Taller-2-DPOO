@@ -24,5 +24,19 @@ public class Bebida implements Producto {
 
 		return factura;
 	}
+	
+	@Override
+	public boolean equals(Object otro) {
+		if (!(otro instanceof ProductoMenu)) {
+			return false;
+		}else {
+			ProductoMenu otroProducto = (ProductoMenu) otro;
+			if (!(nombre.equals(otroProducto.getNombre()))) {
+				return false;
+			}else {
+				return true;
+			}
+		}
+	}
 
 }
