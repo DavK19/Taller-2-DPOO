@@ -9,7 +9,7 @@ public class SobreprecioPedidoException extends Exception{
 	
 	@Override
 	public String getMessage() {
-		return "El pedido sobrepasa los $150.000";
+		return "El pedido sobrepasa los $150.000, el producto no pudo ser agregado";
 	}
 	
 }

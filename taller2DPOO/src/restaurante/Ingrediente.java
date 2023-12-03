@@ -16,4 +16,19 @@ public class Ingrediente {
 	public int getCosto() {
 		return this.costoAdicional;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Ingrediente) {
+			Ingrediente comparar = (Ingrediente) o;
+			if (this.nombre.equals(comparar.getNombre())) {
+				return true;
+			} else {
+				return false;
+			}
+			
+		} else {
+			return false;
+		}
+	}
 }

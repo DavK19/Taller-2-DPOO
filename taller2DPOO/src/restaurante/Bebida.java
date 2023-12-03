@@ -27,10 +27,10 @@ public class Bebida implements Producto {
 	
 	@Override
 	public boolean equals(Object otro) {
-		if (!(otro instanceof ProductoMenu)) {
+		if (!(otro instanceof Bebida)) {
 			return false;
 		}else {
-			ProductoMenu otroProducto = (ProductoMenu) otro;
+			Bebida otroProducto = (Bebida) otro;
 			if (!(nombre.equals(otroProducto.getNombre()))) {
 				return false;
 			}else {

@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 import exceptions.HamburguesaException;
+import exceptions.IngredienteRepetidoException;
 import exceptions.ProductoRepetidoException;
 import exceptions.SobreprecioPedidoException;
 
@@ -27,6 +28,7 @@ public class Restaurante {
 		if (modificacion == 1) {
 			this.archivoProductos = new File("data/menu.txt");
 			this.archivoIngredientes = new File("data/ingredientes.txt");
+			this.archivoCombos = new File("data/combos.txt");
 			try {
 				cargarInformacionRestaurante(this.archivoProductos, this.archivoIngredientes, this.archivoCombos);
 			} catch (HamburguesaException e) {
@@ -78,7 +80,11 @@ public class Restaurante {
 		while (linea != null) {
 			String[] palabras = linea.split(";");
 			Bebida nuevoProducto = new Bebida(palabras[0], Integer.parseInt(palabras[1]));
-			listaBebidas.add(nuevoProducto);
+			if (listaBebidas.contains(nuevoProducto)) {
+				throw new ProductoRepetidoException(nuevoProducto.getNombre());
+			}else {
+				listaBebidas.add(nuevoProducto);
+			}
 			linea = in.readLine();
 		}
 
@@ -113,7 +119,12 @@ public class Restaurante {
 		while (linea != null) {
 			String[] palabras = linea.split(";");
 			Ingrediente nuevoIngrediente = new Ingrediente(palabras[0], Integer.parseInt(palabras[1]));
-			listaIngredientes.add(nuevoIngrediente);
+			
+			if (listaIngredientes.contains(nuevoIngrediente)) {
+				throw new IngredienteRepetidoException(nuevoIngrediente.getNombre());
+			} else {
+				listaIngredientes.add(nuevoIngrediente);
+			}
 			linea = in.readLine();
 		}
 		
@@ -129,14 +140,18 @@ public class Restaurante {
 
 			String[] palabras = linea.split(";");
 			Combo nuevoCombo = new Combo(palabras[0], Double.parseDouble(palabras[1].replace("%", "")));
-
-			for (int i = 2; i < palabras.length; i++) {
-				String productoAgregar = palabras[i];
-				Producto producto = encontrarProducto(productoAgregar);
-				nuevoCombo.agregarItemCombo(producto);
+			
+			if(listaCombos.contains(nuevoCombo)) {
+				throw new ProductoRepetidoException(nuevoCombo.getNombre());
+			} else {
+				for (int i = 2; i < palabras.length; i++) {
+					String productoAgregar = palabras[i];
+					Producto producto = encontrarProducto(productoAgregar);
+					nuevoCombo.agregarItemCombo(producto);
+				}
+				listaCombos.add(nuevoCombo);
 			}
-			listaCombos.add(nuevoCombo);
-
+			
 			linea = in.readLine();
 
 		}
@@ -194,6 +209,8 @@ public class Restaurante {
 				throw new SobreprecioPedidoException();
 			} else {
 				pedidoActual.agregarProducto(producto);
+				System.out.println(producto.getNombre() + "\t" + producto.getPrecio());
+				System.out.println("El precio actual del pedido es: " + pedidoActual.getPrecioTotalPedido());
 			}
 		}
 	}

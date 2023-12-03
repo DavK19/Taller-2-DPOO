@@ -26,12 +26,22 @@ public class Aplicacion {
 
 		boolean working = true;
 		int opcion;
+		int modificacion = 0;
+		
+		while(modificacion == 0) {
+			System.out.println("Desea utilizar la version base del programa o la version modificada?");
+			System.out.println("1. Version base");
+			System.out.println("2. Version Modificada");
+			
+			try {
+			modificacion = Integer.parseInt(input(""));
+			} catch (NumberFormatException e) {
+				modificacion = 0;
+				System.out.println("No ingresaste una opción válida");
+			}
+		}
 
-		System.out.println("Desea utilizar la version base del programa o la version modificada?");
-		System.out.println("1. Version base");
-		System.out.println("2. Version Modificada");
-
-		int modificacion = Integer.parseInt(input(""));
+		
 
 		restaurante = new Restaurante(modificacion);
 		listaProductos = restaurante.getListaProductos();
