@@ -1,4 +1,4 @@
-package consola;
+package src.consola;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,13 +6,13 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import exceptions.SobreprecioPedidoException;
-import restaurante.ProductoMenu;
-import restaurante.ProductoAjustado;
-import restaurante.Bebida;
-import restaurante.Combo;
-import restaurante.Ingrediente;
-import restaurante.Restaurante;
+import src.exceptions.SobreprecioPedidoException;
+import src.restaurante.ProductoMenu;
+import src.restaurante.ProductoAjustado;
+import src.restaurante.Bebida;
+import src.restaurante.Combo;
+import src.restaurante.Ingrediente;
+import src.restaurante.Restaurante;
 
 public class Aplicacion {
 
