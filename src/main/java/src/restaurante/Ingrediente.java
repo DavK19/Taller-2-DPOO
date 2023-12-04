@@ -1,4 +1,4 @@
-package restaurante;
+package src.restaurante;
 
 public class Ingrediente {
 	private String nombre;

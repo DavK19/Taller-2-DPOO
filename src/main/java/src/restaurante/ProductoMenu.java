@@ -1,4 +1,4 @@
-package restaurante;
+package src.restaurante;
 
 public class ProductoMenu implements Producto {
 	private String nombre;

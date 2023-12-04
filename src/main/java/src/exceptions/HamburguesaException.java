@@ -1,4 +1,4 @@
-package exceptions;
+package src.exceptions;
 
 public abstract class HamburguesaException extends Exception{
 
